@@ -10,8 +10,14 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
+  socket.broadcast.emit('enter', 'a new user has connected.');
+
   socket.on('chat message', (msg) => {
     io.emit('chat message', msg);
+  });
+
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('leave', 'a user has disconnected.');
   });
 });
 
