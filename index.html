@@ -27,13 +27,18 @@
       var messages = document.getElementById('messages');
       var form = document.getElementById('form');
       var input = document.getElementById('input');
+      var nickname = "";
 
       form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (input.value) {
-          socket.emit('chat message', input.value);
+          socket.emit('chat message', [nickname, input.value]);
           input.value = '';
         }
+      });
+
+      socket.on('name', function(name) {
+        nickname = name;
       });
 
       socket.on('enter', function(enterMsg) {
@@ -45,7 +50,7 @@
 
       socket.on('chat message', function(msg) {
         var item = document.createElement('li');
-        item.textContent = msg;
+        item.textContent = msg[0] + ': ' + msg[1];
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
       });
