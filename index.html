@@ -18,6 +18,7 @@
   <body>
     <ul id="messages"></ul>
     <form id="form" action="">
+      <!-- <input id="nameBox" type="text" placeholder="your name?" /><button type="submit" id="nameButton" onClick="setMyName()">Set</button> -->
       <input id="input" autocomplete="off" /><button>Send</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
@@ -41,6 +42,17 @@
         nickname = name;
       });
 
+    //   function setName(){
+    //     nickname = document.getElementById("name").value;
+    //     socket.emit("set name", nickname);
+    //     document.getElementById("nameBox").disabled=true;
+    //     document.getElementById("nameButton").hidden=true;
+    //   }
+
+    //   socket.on('set name', function(nickname){
+    //     io.emit('chat message', "New user: " + nickname);
+    //   });
+    
       socket.on('enter', function(enterMsg) {
         var item = document.createElement('li');
         item.textContent = enterMsg;
